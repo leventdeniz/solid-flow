@@ -11,6 +11,7 @@
     "autoprefixer": "^10.4.13",
     "daisyui": "^2.49.0",
     "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-solid": "~0.9.4",
     "postcss": "^8.4.21",
     "prettier": "~2.8.4",
