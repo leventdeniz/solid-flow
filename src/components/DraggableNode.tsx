@@ -1,4 +1,4 @@
-import { children, Component, createSignal, JSX, JSXElement } from 'solid-js';
+import { children, Component, createSignal, JSX } from 'solid-js';
 import { gridSize, mainContainerRef, SetPos } from '~/components/FlowBoard';
 import { Side } from '~/types';
 
@@ -17,12 +17,15 @@ const ConnectionTarget = (props: { position: Side, parentId: NodeProps["identifi
 
     let positionClasses = "top-[-1px] left-[calc(50%-3px)] text-center"
 
+    // eslint-disable-next-line solid/reactivity
     if (props.position === "bottom") {
         positionClasses = "bottom-[-1px] left-[calc(50%-3px)] text-center"
     }
+    // eslint-disable-next-line solid/reactivity
     if (props.position === "left") {
         positionClasses = "top-[calc(50%-3px)] left-[-1px] text-center"
     }
+    // eslint-disable-next-line solid/reactivity
     if (props.position === "right") {
         positionClasses = "top-[calc(50%-3px)] right-[-1px] text-center"
     }
@@ -62,7 +65,7 @@ export const DraggableNode: Component<NodeProps> = (props) => {
         const newSnapX = (Math.round((event.clientX - (mainContainerRef?.offsetLeft ?? 0)) / gridSize()) * gridSize()) - props.width / 2;
         const newSnapY = (Math.round((event.clientY - (mainContainerRef?.offsetTop ?? 0)) / gridSize()) * gridSize()) - props.height / 2;
         if (newSnapY !== props.y || newSnapX !== props.x) {
-            props.setPos((v) => ({ x: newSnapX, y: newSnapY }));
+            props.setPos(() => ({ x: newSnapX, y: newSnapY }));
         }
     }
 

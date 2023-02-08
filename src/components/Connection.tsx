@@ -20,11 +20,11 @@ interface ConnectionDetails {
     side: Side
 }
 
-export interface Connection {
+export interface ConnectionType {
     from: ConnectionDetails;
     to: ConnectionDetails;
-    setFrom: Setter<Connection['from']>;
-    setTo: Setter<Connection['to']>;
+    setFrom: Setter<ConnectionType['from']>;
+    setTo: Setter<ConnectionType['to']>;
     type: 'bezier';
 }
 
@@ -32,7 +32,7 @@ const EndPoint = (props: { pos: Coordinate, onMouseDown: (e: MouseEvent) => void
 
     return (
         <circle
-            onmousedown={props.onMouseDown}
+            onMouseDown={(event) => props.onMouseDown(event)}
             r={6}
             cx={props.pos.x}
             cy={props.pos.y}
@@ -40,7 +40,7 @@ const EndPoint = (props: { pos: Coordinate, onMouseDown: (e: MouseEvent) => void
     );
 };
 
-export const Connection = (props: Connection) => {
+export const Connection = (props: ConnectionType) => {
     const [isMouseDown, setIsMouseDown] = createSignal(false);
     const [path, setPath] = createSignal('');
     const [newPathStartCoords, setNewPathStartCoords] = createSignal({ x: 0, y: 0 });
@@ -117,8 +117,8 @@ export const Connection = (props: Connection) => {
 
     return (
         <>
-            <path d={path()}></path>
-            {newPath() ? <path d={newPath()} style={{ stroke: '#3f51b580' }}></path> : null}
+            <path d={path()} />
+            {newPath() ? <path d={newPath()} style={{ stroke: '#3f51b580' }} /> : null}
             <EndPoint
                 pos={to()!.connectionPoints[props.to.side]}
                 onMouseDown={onToMouseDown}

@@ -1,9 +1,9 @@
-import { children, createEffect, createSignal, For, JSX, mapArray } from 'solid-js';
+import { createEffect, createSignal, For, JSX, mapArray } from 'solid-js';
 import { DraggableNode } from '~/components/DraggableNode';
 import { GridIndicator } from '~/components/GridIndicator';
 import { MouseDebug } from '~/components/MouseDebug';
 import { Setter } from 'solid-js/types/reactive/signal';
-import { unwrap } from 'solid-js/store';
+import type { ConnectionType } from '~/components/Connection'
 import { Connection } from '~/components/Connection';
 import { getBottomCenterOfElement, getLeftCenterOfElement, getRightCenterOfElement, getTopCenterOfElement } from '~/utils/coords-service';
 import { Coordinate } from '~/types';
@@ -40,7 +40,7 @@ const rawArray: NodeObj[] = [
     { identifier: 'test4', x: 40 * 10, y: 40 * 4, children: '4', isDraggable: true, width: 80, height: 40, connectionPoints },
 ];
 
-const rawConnections: Array<Connection> = [
+const rawConnections: Array<Omit<ConnectionType, 'setFrom'|'setTo'>> = [
     {
         from: { nodeIdentifier: rawArray[0].identifier, side: 'bottom' },
         to: { nodeIdentifier: rawArray[1].identifier, side: 'top' },
@@ -121,7 +121,7 @@ export default function FlowBoard() {
                     id="svg" width="916" height="948"
                     class="w-full h-full top-0 left-0 absolute origin-top-left overflow-visible"
                 >
-                    <defs></defs>
+                    <defs />
                     <g>
                         <For each={connections()}>
                             {(connection) => (
