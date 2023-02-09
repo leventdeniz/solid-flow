@@ -9,5 +9,8 @@
     "parser": "@typescript-eslint/parser",
     "plugins": ["solid"],
     "extends": ["eslint:recommended", "plugin:solid/typescript", "prettier"],
-    "rules": {}
+    "rules": {
+      "max-len": "off",
+      "indent": ["error", 2]
+    }
 }
