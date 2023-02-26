@@ -15,26 +15,26 @@ interface NodeProps {
 
 const ConnectionTarget = (props: { position: Side, parentId: NodeProps['identifier'] }) => {
 
-  let positionClasses = 'top-[-1px] left-[calc(50%-3px)] text-center';
+  let positionClasses = 'top-[-2px] left-[calc(50%-3px)] text-center';
 
   // eslint-disable-next-line solid/reactivity
   if (props.position === 'bottom') {
-    positionClasses = 'bottom-[-1px] left-[calc(50%-3px)] text-center';
+    positionClasses = 'bottom-[-2px] left-[calc(50%-3px)] text-center';
   }
   // eslint-disable-next-line solid/reactivity
   if (props.position === 'left') {
-    positionClasses = 'top-[calc(50%-3px)] left-[-1px] text-center';
+    positionClasses = 'top-[calc(50%-3px)] left-[-2px] text-center';
   }
   // eslint-disable-next-line solid/reactivity
   if (props.position === 'right') {
-    positionClasses = 'top-[calc(50%-3px)] right-[-1px] text-center';
+    positionClasses = 'top-[calc(50%-3px)] right-[-2px] text-center';
   }
-
+  /* + (props.visible ? '' : 'opacity-0 ' ) */
   return (
-    <div class={'group z-[2] absolute leading-[0] ' + positionClasses}>
+    <div class={'z-[2] absolute leading-[0] ' + positionClasses}>
       <svg
         viewBox="0 0 2 2" xmlns="http://www.w3.org/2000/svg"
-        class="inline-block fill-[#3f51b580] group-hover:fill-[#3f51b5] group-hover:scale-150"
+        class="inline-block fill-[transparent] group-hover:fill-[#3f51b5] hover:scale-150"
         width="6px"
         height="6px"
       >
@@ -76,14 +76,13 @@ export const DraggableNode: Component<NodeProps> = (props) => {
         width: `${props.width}px`,
         height: `${props.height}px`,
       }}
-      class="absolute z-[1]"
+      class="group absolute z-[1]"
     >
       <div
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
         data-id={props.identifier}
         style={{
-
           'line-height': `${props.height - 2}px`,
           cursor: isMouseDown() ? 'grabbing' : '',
           outline: isMouseDown() ? '2px solid #1940B9' : '',
@@ -92,10 +91,10 @@ export const DraggableNode: Component<NodeProps> = (props) => {
       >
         {childrenResolver()}
       </div>
-      <ConnectionTarget position="top" parentId={props.identifier} />
-      <ConnectionTarget position="bottom" parentId={props.identifier} />
+      <ConnectionTarget  position="top" parentId={props.identifier} />
+      <ConnectionTarget  position="bottom" parentId={props.identifier} />
       <ConnectionTarget position="left" parentId={props.identifier} />
-      <ConnectionTarget position="right" parentId={props.identifier} />
+      <ConnectionTarget  position="right" parentId={props.identifier} />
     </div>
   );
 };

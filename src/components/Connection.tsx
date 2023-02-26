@@ -29,13 +29,30 @@ export interface ConnectionType {
 }
 
 const EndPoint = (props: { pos: Coordinate, onMouseDown: (e: MouseEvent) => void }) => {
+  const [radius, setRadius] = createSignal(4)
 
   return (
     <circle
+      class={'cursor-grab'}
+      onMouseOver={() => setRadius(6)}
+      onMouseLeave={() => setRadius(4)}
       onMouseDown={(event) => props.onMouseDown(event)}
-      r={6}
+      r={radius()}
       cx={props.pos.x}
       cy={props.pos.y}
+    />
+  );
+};
+const EndArrow = (props: { pos: Coordinate, onMouseDown: (e: MouseEvent) => void, side: Side }) => {
+
+  return (
+    <polygon
+      onMouseDown={(event) => props.onMouseDown(event)}
+      points={
+        `${props.pos.x},${props.pos.y + 5} ` +
+        `${props.pos.x - 5},${props.pos.y - 3} ` +
+        `${props.pos.x + 5},${props.pos.y - 3}`
+      }
     />
   );
 };

@@ -87,11 +87,11 @@ export const nodes = mapArray<NodeObj, NodeObjR>(() => rawArray, ({ x, y, ...mod
 
   createEffect(() => {
     setConnectionPoints({
-                          top: getTopCenterOfElement(pos().x, pos().y, model.width, model.height),
-                          bottom: getBottomCenterOfElement(pos().x, pos().y, model.width, model.height),
-                          left: getLeftCenterOfElement(pos().x, pos().y, model.width, model.height),
-                          right: getRightCenterOfElement(pos().x, pos().y, model.width, model.height),
-                        });
+      top: getTopCenterOfElement(pos().x, pos().y, model.width, model.height, 5),
+      bottom: getBottomCenterOfElement(pos().x, pos().y, model.width, model.height, 5),
+      left: getLeftCenterOfElement(pos().x, pos().y, model.width, model.height, 5),
+      right: getRightCenterOfElement(pos().x, pos().y, model.width, model.height, 5),
+    });
   });
 
   return {
